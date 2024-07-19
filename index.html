@@ -1,39 +1,96 @@
-<!DOCTYPE html> 
-<html lang="es"> 
-<head> 
-    <meta charset="UTF-8"> 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet"> 
-    
-    <style> 
-        body { 
-            font-family: 'Roboto', sans-serif; 
-        } 
-        .container { 
-            position: relative; 
-            text-align: center; 
-            color: white; 
-        } 
-        .centered-text { 
-            position: absolute; 
-            transform: translate(-50%, -50%); 
-            font-size: 18px; 
-        } 
-        .text1 { top: 32.5%; left: 53%; color: #7D2A9C; font-size: 380%;} 
-        .text2 { top: 41.8%; left: 50%; color: #000; font-size: 170%} 
-        .text3 { top: 48.5%; left: 49%; color: #888; font-size: 80%;} 
-        .text4 { top: 56.8%; left: 69.35%; color: #000; font-size: 80%;} 
-        .text5 { top: 67%; left: 68.5%; color: #000; font-size: 94%;} 
-    </style> 
-</head> 
-<body> 
-    <div class="container"> 
-        <img src="IMG_8424.PNG" alt="Yape Image" style="width:100%;"> 
-        <div class="centered-text text1">500</div> 
-        <div class="centered-text text2"><strong>Jhosue Isai Huauya Galindo</strong></div> 
-        <div class="centered-text text3">18 jul. 2024 - 04:58 pm</div> 
-        <div class="centered-text text4">000</div> 
-        <div class="centered-text text5">04940701</div> 
-    </div> 
-</body> 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .container {
+            position: relative;
+            text-align: center;
+            color: white;
+        }
+        .centered-text {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+        }
+        .text1 { top: 32.5%; left: 53%; color: #7D2A9C; font-size: 380%;}
+        .text2 { top: 41.8%; left: 50%; color: #000;font-size: 145%;}
+        .text3 { top: 48.5%; left: 49%; color: #888; font-size: 80%;}
+        .text4 { top: 56.8%; left: 69.35%; color: #000; font-size: 80%;}
+        .text5 { top: 67%; left: 68.5%; color: #000; font-size: 94%;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="IMG_8424.PNG" alt="Yape Image" style="width:100%;">
+        <div class="centered-text text1" id="text1">10</div>
+        <div class="centered-text text2" id="text2"><strong>lorem ipsum lorem ipsum</strong></div>
+        <div class="centered-text text3" id="current-time"></div>
+        <div class="centered-text text4" id="text4">000</div>
+        <div class="centered-text text5" id="random-number"></div>
+    </div>
+    <script>
+        function formatDate(date) {
+            const months = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'];
+            const day = date.getDate().toString().padStart(2, '0');
+            const month = months[date.getMonth()];
+            const year = date.getFullYear();
+            const hours = date.getHours().toString().padStart(2, '0');
+            const minutes = date.getMinutes().toString().padStart(2, '0');
+            const ampm = hours >= 12 ? 'pm' : 'am';
+            const formattedHours = hours % 12 || 12;
+            return `${day} ${month} ${year} - ${formattedHours}:${minutes} ${ampm}`;
+        }
+
+        function updateTime() {
+            const now = new Date();
+            const formattedDate = formatDate(now);
+            document.getElementById('current-time').textContent = formattedDate;
+        }
+
+        function getRandomNumber() {
+            const min = 10000000;
+            const max = 16000000;
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        function updateRandomNumber() {
+            const randomNumber = getRandomNumber();
+            document.getElementById('random-number').textContent = randomNumber;
+        }
+
+        function getQueryParam(name) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(name);
+        }
+
+        function updateTextFromURL() {
+            const text1 = getQueryParam('text1');
+            const text2 = getQueryParam('text2');
+            const text4 = getQueryParam('text4');
+
+            if (text1 !== null) {
+                document.getElementById('text1').textContent = text1;
+            }
+
+            if (text2 !== null) {
+                document.getElementById('text2').textContent = text2;
+            }
+
+            if (text4 !== null) {
+                document.getElementById('text4').textContent = text4;
+            }
+        }
+
+        // Update the time, random number, and text from URL when the page loads
+        updateTime();
+        updateRandomNumber();
+        updateTextFromURL();
+    </script>
+</body>
 </html>
